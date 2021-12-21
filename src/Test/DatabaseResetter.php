@@ -63,15 +63,14 @@ final class DatabaseResetter
     /** @retrun array<SchemaResetterInterface> */
     private static function schemaResetters(KernelInterface $kernel): array
     {
-        $application = self::createApplication($kernel);
-
         $databaseResetters = [];
         if ($kernel->getContainer()->has('doctrine')) {
+            $application = self::createApplication($kernel);
             $databaseResetters[] = new ORMDatabaseResetter($application, $kernel->getContainer()->get('doctrine'));
         }
 
         if ($kernel->getContainer()->has('doctrine_mongodb')) {
-            $databaseResetters[] = new ODMSchemaResetter($application, $kernel->getContainer()->get('doctrine_mongodb'));
+            $databaseResetters[] = new ODMSchemaResetter($kernel->getContainer()->get('doctrine_mongodb'));
         }
 
         return $databaseResetters;

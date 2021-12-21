@@ -10,14 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  */
 final class ODMSchemaResetter extends AbstractSchemaResetter
 {
-    /** @var Application */
-    private $application;
     /** @var ManagerRegistry */
     private $registry;
 
-    public function __construct(Application $application, ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
-        $this->application = $application;
         $this->registry = $registry;
     }
 

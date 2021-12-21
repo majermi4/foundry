@@ -309,7 +309,9 @@ class Factory
     {
         try {
             return Proxy::createFromPersisted($object)->refresh()->object();
-        } catch (\RuntimeException $e) {
+        } catch (\Throwable) {
+            // TODO: Changed Runtime exception to throwable because calling refresh on embed object
+            //       can lead to an error from \Doctrine\ODM\MongoDB\Mapping\ClassMetadata::getIdentifierValue(..)
             return $object;
         }
     }
